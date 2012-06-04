@@ -44,6 +44,7 @@ if __name__ == "__main__":
     pygame.display.set_caption(schedule_filename)
     screen = pygame.display.set_mode((slots_per_row * tile_size, 600))
     font = pygame.font.SysFont("Comic Sans MS", 20)
+    font_big = pygame.font.SysFont("Comic Sans MS", 50)
 
     speakers = {}
     for filename in os.listdir("speakers"):
@@ -51,6 +52,7 @@ if __name__ == "__main__":
             (pygame.image.load("speakers/" + filename),
              font.render(filename, 1, (180, 180, 180)))
 
+    label_title = font_big.render(schedule_filename, 1, (100, 100, 100))
     label_selected = font.render("selected speaker:", 1, (100, 100, 100))
     label_all = font.render("all speakers:", 1, (100, 100, 100))
 
@@ -95,15 +97,16 @@ if __name__ == "__main__":
             x = (i % slots_per_row) * tile_size
             y = (i // slots_per_row) * tile_size
             screen.blit(time_label, (x, y))
-        screen.blit(label_all, (10, 195))
-        for i, speaker in enumerate(speakers.items()):
-            x = 10 + (i // 11) * 200
-            y = (i % 11) * tile_size + 220
-            screen.blit(speaker[1][0], (x, y))
-            screen.blit(speaker[1][1], (x + 40, y))
         screen.blit(label_selected, (10, 135))
         screen.blit(selected_speaker.current_tile, (10, 155))
         screen.blit(selected_speaker.current_label, (50, 155))
+        screen.blit(label_title, (150, 135))
+        screen.blit(label_all, (10, 195))
+        for i, speaker in enumerate(speakers.items()):
+            x = 10 + (i // 11) * 150
+            y = (i % 11) * tile_size + 220
+            screen.blit(speaker[1][0], (x, y))
+            screen.blit(speaker[1][1], (x + 40, y))
         pygame.display.flip()
         pygame.time.wait(100)
 
