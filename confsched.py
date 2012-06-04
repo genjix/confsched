@@ -34,12 +34,14 @@ class SpeakerIterator:
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit(-1)
+    schedule_filename = sys.argv[1]
 
     number_slots = 96
     slots_per_row = number_slots / 4
     tile_size = 32
 
     pygame.init()
+    pygame.display.set_caption(schedule_filename)
     screen = pygame.display.set_mode((slots_per_row * tile_size, 600))
     font = pygame.font.SysFont("Comic Sans MS", 20)
 
@@ -60,7 +62,6 @@ if __name__ == "__main__":
     selected_speaker.next()
 
     schedule = ["none.png"]* number_slots
-    schedule_filename = sys.argv[1]
     with open(schedule_filename) as schedule_file:
         for i, name in enumerate(schedule_file):
             schedule[i] = name.strip("\n")
