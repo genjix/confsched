@@ -1,4 +1,4 @@
 confsched
 =========
 
-bitcoin2012 conference scheduler
+bitcoin2012.com conference scheduler
