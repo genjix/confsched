@@ -52,7 +52,7 @@ if __name__ == "__main__":
     label_selected = font.render("selected speaker:", 1, (100, 100, 100))
 
     times = []
-    for i in range(10, 18):
+    for i in range(9, 17):
         times.append(font.render(str(i), 1, (0, 0, 0)))
 
     selected_speaker = SpeakerIterator(speakers)
@@ -93,9 +93,10 @@ if __name__ == "__main__":
             y = (i // slots_per_row) * tile_size
             screen.blit(time_label, (x, y))
         for i, speaker in enumerate(speakers.items()):
-            y = i * tile_size + 200
-            screen.blit(speaker[1][0], (10, y))
-            screen.blit(speaker[1][1], (50, y))
+            x = 10 + (i // 11) * 200
+            y = (i % 11) * tile_size + 150
+            screen.blit(speaker[1][0], (x, y))
+            screen.blit(speaker[1][1], (x + 40, y))
         screen.blit(label_selected, (10, 520))
         screen.blit(selected_speaker.current_tile, (10, 550))
         screen.blit(selected_speaker.current_label, (50, 550))
