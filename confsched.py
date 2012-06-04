@@ -35,7 +35,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit(-1)
 
-    number_slots = 80
+    number_slots = 96
     slots_per_row = number_slots / 4
     tile_size = 32
 
@@ -50,6 +50,10 @@ if __name__ == "__main__":
              font.render(filename, 1, (180, 180, 180)))
 
     label_selected = font.render("selected speaker:", 1, (100, 100, 100))
+
+    times = []
+    for i in range(10, 18):
+        times.append(font.render(str(i), 1, (0, 0, 0)))
 
     selected_speaker = SpeakerIterator(speakers)
     selected_speaker.next()
@@ -83,6 +87,11 @@ if __name__ == "__main__":
             tile_name = schedule[i]
             tile = speakers[tile_name][0]
             screen.blit(tile, (x, y))
+        for i, time_label in enumerate(times):
+            i *= 12
+            x = (i % slots_per_row) * tile_size
+            y = (i // slots_per_row) * tile_size
+            screen.blit(time_label, (x, y))
         for i, speaker in enumerate(speakers.items()):
             y = i * tile_size + 200
             screen.blit(speaker[1][0], (10, y))
