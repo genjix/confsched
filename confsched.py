@@ -50,6 +50,7 @@ if __name__ == "__main__":
              font.render(filename, 1, (180, 180, 180)))
 
     label_selected = font.render("selected speaker:", 1, (100, 100, 100))
+    label_all = font.render("all speakers:", 1, (100, 100, 100))
 
     times = []
     for i in range(9, 17):
@@ -77,7 +78,8 @@ if __name__ == "__main__":
                 x, y = event.pos[0] // tile_size, event.pos[1] // tile_size
                 i = y * slots_per_row + x
                 print i, "set to", selected_speaker.current_name
-                schedule[i] = selected_speaker.current_name
+                if i < len(schedule):
+                    schedule[i] = selected_speaker.current_name
 
         screen.fill((0, 0, 0))
         assert len(schedule) == number_slots
@@ -92,14 +94,15 @@ if __name__ == "__main__":
             x = (i % slots_per_row) * tile_size
             y = (i // slots_per_row) * tile_size
             screen.blit(time_label, (x, y))
+        screen.blit(label_all, (10, 195))
         for i, speaker in enumerate(speakers.items()):
             x = 10 + (i // 11) * 200
-            y = (i % 11) * tile_size + 150
+            y = (i % 11) * tile_size + 220
             screen.blit(speaker[1][0], (x, y))
             screen.blit(speaker[1][1], (x + 40, y))
-        screen.blit(label_selected, (10, 520))
-        screen.blit(selected_speaker.current_tile, (10, 550))
-        screen.blit(selected_speaker.current_label, (50, 550))
+        screen.blit(label_selected, (10, 135))
+        screen.blit(selected_speaker.current_tile, (10, 155))
+        screen.blit(selected_speaker.current_label, (50, 155))
         pygame.display.flip()
         pygame.time.wait(100)
 
