@@ -83,6 +83,14 @@ if __name__ == "__main__":
                 print i, "set to", selected_speaker.current_name
                 if i < len(schedule):
                     schedule[i] = selected_speaker.current_name
+                else:
+                    x, y = event.pos
+                    for i, speaker in enumerate(speakers.items()):
+                        spx = 10 + (i // 11) * 150
+                        spy = (i % 11) * tile_size + 220
+                        if (x >= spx and x <= spx + tile_size and
+                            y >= spy and y <= spy + tile_size):
+                            selected_speaker.current_speaker = speaker
 
         screen.fill((0, 0, 0))
         assert len(schedule) == number_slots
